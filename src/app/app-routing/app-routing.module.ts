@@ -1,44 +1,15 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { JobsDashboardComponent } from "jobs/jobs-dashboard/jobs-dashboard.component";
-import { JobsDashboardNewComponent } from "jobs/jobs-dashboard-new/jobs-dashboard-new.component";
-
-import { JobsDetailComponent } from "../jobs/jobs-detail/jobs-detail.component";
-
 import { ErrorPageComponent } from "shared/modules/error-page/error-page.component";
 
-import { LoginComponent } from "../users/login/login.component";
-import { UserSettingsComponent } from "../users/user-settings/user-settings.component";
-
-import { ViewProposalPageComponent } from "../proposals/view-proposal-page/view-proposal-page.component";
-
 import { AuthGuard } from "./auth.guard";
-import { SampleDetailComponent } from "../samples/sample-detail/sample-detail.component";
 
-import { LogbooksDashboardComponent } from "../logbooks/logbooks-dashboard/logbooks-dashboard.component";
-import { LogbooksTableComponent } from "../logbooks/logbooks-table/logbooks-table.component";
-import { AboutComponent } from "about/about/about.component";
-import { HelpComponent } from "help/help/help.component";
-import { PublisheddataDashboardComponent } from "publisheddata/publisheddata-dashboard/publisheddata-dashboard.component";
-import { PublisheddataDetailsComponent } from "publisheddata/publisheddata-details/publisheddata-details.component";
-import { PublisheddataEditComponent } from "publisheddata/publisheddata-edit/publisheddata-edit.component";
 
 // handles external URLs by lookup in the env config
-import { RedirectGuard } from "app-routing/redirect.guard";
-import { ProposalDashboardComponent } from "proposals/proposal-dashboard/proposal-dashboard.component";
-import { SampleDashboardComponent } from "samples/sample-dashboard/sample-dashboard.component";
 import { LoginLayoutComponent } from "_layout/login-layout/login-layout.component";
 import { AppLayoutComponent } from "_layout/app-layout/app-layout.component";
-import { PoliciesDashboardComponent } from "policies/policies-dashboard/policies-dashboard.component";
-import { InstrumentsDashboardComponent } from "instruments/instruments-dashboard/instruments-dashboard.component";
-import { InstrumentDetailsComponent } from "instruments/instrument-details/instrument-details.component";
 import { AnonymousLayoutComponent } from "_layout/anonymous-layout/anonymous-layout.component";
-import { JobsGuard } from "app-routing/jobs.guard";
-import { PoliciesGuard } from "app-routing/policies.guard";
-import { LogbookGuard } from "app-routing/logbook.guard";
-import { FilesDashboardComponent } from "files/files-dashboard/files-dashboard.component";
-import { ProposalDashboardNewComponent } from "proposals/proposal-dashboard-new/proposal-dashboard-new.component";
 
 export const routes: Routes = [
   {
@@ -56,11 +27,11 @@ export const routes: Routes = [
       },
       {
         path: "anonymous/about",
-        component: AboutComponent,
+        loadChildren: () => import("../about/about.module").then( m => m.AboutModule)
       },
       {
         path: "anonymous/help",
-        component: HelpComponent,
+        loadChildren: () => import("../help/help.module").then( m => m.HelpModule)
       },
     ],
   },
@@ -69,7 +40,10 @@ export const routes: Routes = [
     component: LoginLayoutComponent,
     children: [
       { path: "", redirectTo: "/login", pathMatch: "full" },
-      { path: "login", component: LoginComponent },
+      {
+        path: "login",
+        loadChildren: () => import("../users/login/login.module").then( m => m.LoginModule)
+      },
       {
         path: "login/error",
         component: ErrorPageComponent,
@@ -92,130 +66,75 @@ export const routes: Routes = [
       },
       {
         path: "files",
-        component: FilesDashboardComponent,
-        canActivate: [AuthGuard],
+        loadChildren: () => import("../files/files.module").then( m => m.FilesModule)
       },
       {
         path: "instruments",
-        component: InstrumentsDashboardComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "instruments/:id",
-        component: InstrumentDetailsComponent,
-        canActivate: [AuthGuard],
+        loadChildren: () => import("../instruments/instruments.module").then( m => m.InstrumentsModule)
       },
       {
         path: "proposals",
-        component: ProposalDashboardNewComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "proposalsold",
-        component: ProposalDashboardComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "proposals/:id",
-        component: ViewProposalPageComponent,
-        canActivate: [AuthGuard],
+        loadChildren: () => import("../proposals/proposals.module").then( m => m.ProposalsModule)
       },
       {
         path: "publishedDatasets",
-        component: PublisheddataDashboardComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "publishedDatasets/:id/edit",
-        component: PublisheddataEditComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "publishedDatasets/:id",
-        component: PublisheddataDetailsComponent,
-        canActivate: [AuthGuard],
+        loadChildren: () => import("../publisheddata/publisheddata.module").then( m => m.PublisheddataModule)
       },
       {
         path: "samples",
-        component: SampleDashboardComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "samples/:id",
-        component: SampleDetailComponent,
-        canActivate: [AuthGuard],
+        loadChildren: () => import("../samples/samples.module").then( m => m.SamplesModule)
       },
 
       {
         path: "policies",
-        component: PoliciesDashboardComponent,
-        canActivate: [AuthGuard, PoliciesGuard],
+        loadChildren: () => import("../policies/policies.module").then( m => m.PoliciesModule)
       },
 
       {
         path: "user",
-        component: UserSettingsComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "user/settings",
-        component: UserSettingsComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "user/jobsold",
-        component: JobsDashboardComponent,
-        canActivate: [AuthGuard, JobsGuard],
-      },
-      {
-        path: "user/jobs",
-        component: JobsDashboardNewComponent,
-        canActivate: [AuthGuard, JobsGuard],
-      },
-      {
-        path: "user/jobs/:id",
-        component: JobsDetailComponent,
-        canActivate: [AuthGuard, JobsGuard],
+        loadChildren: () => import("../users/users.module").then( m => m.UsersModule)
       },
       {
         path: "about",
-        component: AboutComponent,
+        loadChildren: () => import("../about/about.module").then( m => m.AboutModule)
       },
       {
         path: "help",
-        component: HelpComponent,
+        loadChildren: () => import("../help/help.module").then( m => m.HelpModule)
+        // component: HelpComponent,
       },
-      {
-        path: "logbooks",
-        component: LogbooksTableComponent,
-        canActivate: [AuthGuard, LogbookGuard],
-      },
-      {
-        path: "logbooks/:name",
-        component: LogbooksDashboardComponent,
-        canActivate: [AuthGuard, LogbookGuard],
-      },
+      // {
+      //   path: "logbooks",
+      //   loadChildren: () => import("../logbooks/logbooks.module").then( m => m.LogbooksModule)
+      //   component: LogbooksTableComponent,
+      //   canActivate: [AuthGuard, LogbookGuard],
+      // },
+      // {
+      //   path: "logbooks/:name",
+      //   component: LogbooksDashboardComponent,
+      //   canActivate: [AuthGuard, LogbookGuard],
+      // },
       {
         path: "error",
         component: ErrorPageComponent,
         data: { errorTitle: "Location Not Found" },
       },
-      {
-        path: "help/ingestManual",
-        canActivate: [RedirectGuard],
-        component: RedirectGuard,
-        data: {
-          urlConfigItem: "ingestManual",
-        },
-      },
-      {
-        path: "help/SciCatGettingStartedSLSSummary",
-        canActivate: [RedirectGuard],
-        component: RedirectGuard,
-        data: {
-          urlConfigItem: "gettingStarted",
-        },
-      },
+      // {
+      //   path: "help/ingestManual",
+      //   canActivate: [RedirectGuard],
+      //   component: RedirectGuard,
+      //   data: {
+      //     urlConfigItem: "ingestManual",
+      //   },
+      // },
+      // {
+      //   path: "help/SciCatGettingStartedSLSSummary",
+      //   canActivate: [RedirectGuard],
+      //   component: RedirectGuard,
+      //   data: {
+      //     urlConfigItem: "gettingStarted",
+      //   },
+      // },
       {
         path: "logout",
         component: LoginLayoutComponent,

@@ -6,6 +6,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { SharedCatanieModule } from "shared/shared.module";
 import { FilesDashboardComponent } from "./files-dashboard/files-dashboard.component";
+import { FilesRoutingModule } from "./files.routing.module";
 
 // TODO remove unneeded "store" structures in new componnets
 
@@ -18,6 +19,7 @@ import { FilesDashboardComponent } from "./files-dashboard/files-dashboard.compo
     MatCardModule,
     MatIconModule,
     SharedCatanieModule,
+    FilesRoutingModule
   ],
   exports: [FilesDashboardComponent]
 })

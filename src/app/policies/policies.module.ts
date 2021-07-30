@@ -27,6 +27,7 @@ import { StoreModule } from "@ngrx/store";
 import { policiesReducer } from "state-management/reducers/policies.reducer";
 import { PoliciesDashboardComponent } from "./policies-dashboard/policies-dashboard.component";
 import { FlexModule } from "@angular/flex-layout";
+import { PoliciesRoutingModule } from "./policies.routing.module";
 
 @NgModule({
   imports: [
@@ -65,6 +66,7 @@ import { FlexModule } from "@angular/flex-layout";
     MatDialogModule,
     MatExpansionModule,
     FlexModule,
+    PoliciesRoutingModule
   ],
   declarations: [EditDialogComponent, PoliciesDashboardComponent],
   exports: [],

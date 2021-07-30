@@ -33,6 +33,7 @@ import { LogbooksModule } from "logbooks/logbooks.module";
 import { ProposalDashboardNewComponent } from "./proposal-dashboard-new/proposal-dashboard-new.component";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
+import { ProposalsRoutingModule } from "./proposal.routing.module";
 
 @NgModule({
   imports: [
@@ -56,14 +57,15 @@ import { MatNativeDateModule } from "@angular/material/core";
     NgxJsonViewerModule,
     RouterModule,
     SharedCatanieModule,
-    StoreModule.forFeature("proposals", proposalsReducer)
+    StoreModule.forFeature("proposals", proposalsReducer),
+    ProposalsRoutingModule
   ],
   declarations: [
     ViewProposalPageComponent,
     ProposalDetailComponent,
     ProposalDashboardComponent,
     ProposalFilterComponent,
-    ProposalDashboardNewComponent
+    ProposalDashboardNewComponent,
   ],
   exports: [],
   providers: [DatePipe, FileSizePipe, SlicePipe]

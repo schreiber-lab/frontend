@@ -5,6 +5,7 @@ import { MatCardModule } from "@angular/material/card";
 import { AppConfigModule } from "app-config.module";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { LinkyModule } from "ngx-linky";
+import { AboutRoutingModule } from "./about.routing.module";
 
 @NgModule({
   declarations: [AboutComponent],
@@ -13,7 +14,8 @@ import { LinkyModule } from "ngx-linky";
     CommonModule,
     FlexLayoutModule,
     LinkyModule,
-    MatCardModule
+    MatCardModule,
+    AboutRoutingModule
   ]
 })
 export class AboutModule {}

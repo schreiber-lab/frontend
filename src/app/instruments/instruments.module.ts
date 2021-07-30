@@ -12,6 +12,7 @@ import { InstrumentDetailsComponent } from "./instrument-details/instrument-deta
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { MatTabsModule } from "@angular/material/tabs";
+import { InstrumentsRoutingModule } from "./instruments.routing.module";
 
 @NgModule({
   declarations: [InstrumentsDashboardComponent, InstrumentDetailsComponent],
@@ -23,7 +24,8 @@ import { MatTabsModule } from "@angular/material/tabs";
     MatIconModule,
     MatTabsModule,
     SharedCatanieModule,
-    StoreModule.forFeature("instruments", instrumentsReducer)
+    StoreModule.forFeature("instruments", instrumentsReducer),
+    InstrumentsRoutingModule
   ],
   providers: [JsonHeadPipe]
 })

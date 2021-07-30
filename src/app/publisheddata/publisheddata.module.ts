@@ -22,6 +22,7 @@ import { MatOptionModule } from "@angular/material/core";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { PublisheddataRoutingModule } from "./publisheddata.routing.module";
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { MatTooltipModule } from "@angular/material/tooltip";
     FormsModule,
     MatFormFieldModule,
     MatChipsModule,
-    MatOptionModule
+    MatOptionModule,
+    PublisheddataRoutingModule
   ]
 })
 export class PublisheddataModule {}

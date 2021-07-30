@@ -20,6 +20,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { NgxJsonViewerModule } from "ngx-json-viewer";
 import { SharedCatanieModule } from "shared/shared.module";
 import { MatChipsModule } from "@angular/material/chips";
+import { SamplesRoutingModule } from "./samples.routing.module";
+import { FileSizePipe } from "shared/pipes/filesize.pipe";
 
 @NgModule({
   imports: [
@@ -40,6 +42,7 @@ import { MatChipsModule } from "@angular/material/chips";
     ReactiveFormsModule,
     SharedCatanieModule,
     StoreModule.forFeature("samples", samplesReducer),
+    SamplesRoutingModule
   ],
   exports: [SampleDetailComponent, SampleDialogComponent],
   declarations: [
@@ -47,6 +50,8 @@ import { MatChipsModule } from "@angular/material/chips";
     SampleDialogComponent,
     SampleDashboardComponent,
   ],
-  providers: [],
+  providers: [
+    FileSizePipe
+  ],
 })
 export class SamplesModule {}
