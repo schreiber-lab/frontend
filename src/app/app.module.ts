@@ -4,7 +4,7 @@ import { AppConfigModule } from "app-config.module";
 import { AppRoutingModule, routes } from "app-routing/app-routing.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { BrowserModule, Title } from "@angular/platform-browser";
-import { DatasetsModule } from "datasets/datasets.module";
+import { DatasetsComponentsModule } from "datasets/datasets-components/datasets-components.module";
 import { EffectsModule } from "@ngrx/effects";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { HttpClientModule } from "@angular/common/http";
@@ -49,7 +49,7 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
-    DatasetsModule,
+    DatasetsComponentsModule,
     FilesModule,
     FlexLayoutModule,
     HelpModule,

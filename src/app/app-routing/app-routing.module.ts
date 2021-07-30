@@ -1,11 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { DashboardComponent } from "../datasets/dashboard/dashboard.component";
-import { DatafilesComponent } from "../datasets/datafiles/datafiles.component";
-import { DatablocksComponent } from "../datasets/datablocks-table/datablocks-table.component";
-import { DatasetDetailsDashboardComponent } from "datasets/dataset-details-dashboard/dataset-details-dashboard.component";
-
 import { JobsDashboardComponent } from "jobs/jobs-dashboard/jobs-dashboard.component";
 import { JobsDashboardNewComponent } from "jobs/jobs-dashboard-new/jobs-dashboard-new.component";
 
@@ -18,9 +13,7 @@ import { UserSettingsComponent } from "../users/user-settings/user-settings.comp
 
 import { ViewProposalPageComponent } from "../proposals/view-proposal-page/view-proposal-page.component";
 
-import { PublishComponent } from "datasets/publish/publish.component";
 import { AuthGuard } from "./auth.guard";
-import { BatchViewComponent } from "datasets/batch-view/batch-view.component";
 import { SampleDetailComponent } from "../samples/sample-detail/sample-detail.component";
 
 import { LogbooksDashboardComponent } from "../logbooks/logbooks-dashboard/logbooks-dashboard.component";
@@ -40,15 +33,11 @@ import { AppLayoutComponent } from "_layout/app-layout/app-layout.component";
 import { PoliciesDashboardComponent } from "policies/policies-dashboard/policies-dashboard.component";
 import { InstrumentsDashboardComponent } from "instruments/instruments-dashboard/instruments-dashboard.component";
 import { InstrumentDetailsComponent } from "instruments/instrument-details/instrument-details.component";
-import { AnonymousDashboardComponent } from "datasets/anonymous-dashboard/anonymous-dashboard.component";
-import { AnonymousDetailsDashboardComponent } from "datasets/anonymous-details-dashboard/anonymous-details-dashboard.component";
 import { AnonymousLayoutComponent } from "_layout/anonymous-layout/anonymous-layout.component";
 import { JobsGuard } from "app-routing/jobs.guard";
 import { PoliciesGuard } from "app-routing/policies.guard";
 import { LogbookGuard } from "app-routing/logbook.guard";
 import { FilesDashboardComponent } from "files/files-dashboard/files-dashboard.component";
-import { DatasetsGuard } from "./datasets.guard";
-import { LeavingPageGuard } from "./pending-changes.guard";
 import { ProposalDashboardNewComponent } from "proposals/proposal-dashboard-new/proposal-dashboard-new.component";
 
 export const routes: Routes = [
@@ -63,11 +52,7 @@ export const routes: Routes = [
       },
       {
         path: "anonymous/datasets",
-        component: AnonymousDashboardComponent,
-      },
-      {
-        path: "anonymous/datasets/:id",
-        component: AnonymousDetailsDashboardComponent,
+        loadChildren: () => import("../datasets/public-datasets/public-datasets.module").then(m => m.PublicDatasetsModule)
       },
       {
         path: "anonymous/about",
@@ -102,35 +87,8 @@ export const routes: Routes = [
         pathMatch: "full",
       },
       {
-        path: "datasets/batch/publish",
-        component: PublishComponent,
-        canActivate: [AuthGuard],
-      },
-      {
         path: "datasets",
-        component: DashboardComponent,
-        canActivate: [DatasetsGuard],
-      },
-      {
-        path: "datasets/batch",
-        component: BatchViewComponent,
-        canActivate: [AuthGuard],
-      },
-      {
-        path: "datasets/:id",
-        component: DatasetDetailsDashboardComponent,
-        canActivate: [DatasetsGuard],
-        canDeactivate: [LeavingPageGuard]
-      },
-      {
-        path: "datasets/:id/datablocks",
-        component: DatablocksComponent,
-        canActivate: [DatasetsGuard],
-      },
-      {
-        path: "datasets/:id/datafiles",
-        component: DatafilesComponent,
-        canActivate: [DatasetsGuard],
+        loadChildren: () => import("../datasets/private-datasets/private-datasets.module").then(m => m.PrivateDatasetsModule),
       },
       {
         path: "files",
@@ -240,7 +198,7 @@ export const routes: Routes = [
       {
         path: "error",
         component: ErrorPageComponent,
-        data: { errorTitle: "Location Not Found"},
+        data: { errorTitle: "Location Not Found" },
       },
       {
         path: "help/ingestManual",
@@ -266,7 +224,7 @@ export const routes: Routes = [
       {
         path: "404",
         component: ErrorPageComponent,
-        data: { errorTitle: "404 Page not found" , message: "Sorry, the page you are trying to view doesn't exist"}
+        data: { errorTitle: "404 Page not found", message: "Sorry, the page you are trying to view doesn't exist" }
       },
     ],
   },
@@ -282,5 +240,5 @@ export const routes: Routes = [
   providers: [],
 })
 export class AppRoutingModule {
-  constructor() {}
+  constructor() { }
 }

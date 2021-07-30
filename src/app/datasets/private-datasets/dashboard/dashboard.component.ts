@@ -27,7 +27,7 @@ import {
 import { distinctUntilChanged, filter, map, take } from "rxjs/operators";
 import { MatDialog } from "@angular/material/dialog";
 import { MatSidenav } from "@angular/material/sidenav";
-import { AddDatasetDialogComponent } from "datasets/add-dataset-dialog/add-dataset-dialog.component";
+import { AddDatasetDialogComponent } from "datasets/datasets-components/add-dataset-dialog/add-dataset-dialog.component";
 import { combineLatest, Subscription } from "rxjs";
 import {
   getProfile,
@@ -39,7 +39,7 @@ import {
   selectColumnAction,
   deselectColumnAction,
 } from "state-management/actions/user.actions";
-import { SelectColumnEvent } from "datasets/dataset-table-settings/dataset-table-settings.component";
+import { SelectColumnEvent } from "datasets/datasets-components/dataset-table-settings/dataset-table-settings.component";
 
 @Component({
   selector: "dashboard",

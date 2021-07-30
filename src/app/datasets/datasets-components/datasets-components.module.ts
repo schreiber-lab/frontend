@@ -1,8 +1,7 @@
-import { DatasetEffects } from "./../state-management/effects/datasets.effects";
 import { EffectsModule } from "@ngrx/effects";
 import { AppConfigModule } from "app-config.module";
 import { LinkyModule } from "ngx-linky";
-import { ArchivingService } from "./archiving.service";
+
 import { BatchCardComponent } from "./batch-card/batch-card.component";
 import { BatchViewComponent } from "./batch-view/batch-view.component";
 import { AsyncPipe, CommonModule } from "@angular/common";
@@ -45,26 +44,22 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatTooltipModule } from "@angular/material/tooltip";
 
 import { PublishComponent } from "./publish/publish.component";
-import { jobsReducer } from "../state-management/reducers/jobs.reducer";
 import { LogbooksModule } from "logbooks/logbooks.module";
 import { ReduceComponent } from "./reduce/reduce.component";
-import { DatasetDetailsDashboardComponent } from "./dataset-details-dashboard/dataset-details-dashboard.component";
-import { DashboardComponent } from "./dashboard/dashboard.component";
 import { DatablocksComponent } from "./datablocks-table/datablocks-table.component";
 import { DatafilesComponent } from "./datafiles/datafiles.component";
-import { DatasetDetailComponent } from "./dataset-detail/dataset-detail.component";
 import { DatasetTableComponent } from "./dataset-table/dataset-table.component";
 import { DatasetsFilterComponent } from "./datasets-filter/datasets-filter.component";
 import { AddDatasetDialogComponent } from "./add-dataset-dialog/add-dataset-dialog.component";
 import { DatasetTableSettingsComponent } from "./dataset-table-settings/dataset-table-settings.component";
 import { DatasetTableActionsComponent } from "./dataset-table-actions/dataset-table-actions.component";
 import { DatasetLifecycleComponent } from "./dataset-lifecycle/dataset-lifecycle.component";
-import { AnonymousDashboardComponent } from "./anonymous-dashboard/anonymous-dashboard.component";
-import { AnonymousDetailsDashboardComponent } from "./anonymous-details-dashboard/anonymous-details-dashboard.component";
-import { AnonymousDetailsComponent } from "./anonymous-details/anonymous-details.component";
 import { SampleEditComponent } from "./sample-edit/sample-edit.component";
 import { LuxonDateAdapter, MAT_LUXON_DATE_FORMATS } from "ngx-material-luxon";
 import { MatDatepickerModule } from "@angular/material/datepicker";
+import { ArchivingService } from "datasets/archiving.service";
+import { jobsReducer } from "state-management/reducers/jobs.reducer";
+import { DatasetEffects } from "state-management/effects/datasets.effects";
 
 @NgModule({
   imports: [
@@ -83,49 +78,37 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
     MatDatepickerModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatGridListModule,
     MatIconModule,
     MatInputModule,
-    MatListModule,
     MatNativeDateModule,
     MatOptionModule,
     MatPaginatorModule,
     MatRadioModule,
     MatSelectModule,
-    MatSidenavModule,
-    MatSlideToggleModule,
     MatSortModule,
     MatStepperModule,
+    SharedCatanieModule,
     MatTableModule,
-    MatTabsModule,
     MatTooltipModule,
     NgxJsonViewerModule,
     ReactiveFormsModule,
     RouterModule,
-    SharedCatanieModule,
     StoreModule.forFeature("datasets", datasetsReducer),
     StoreModule.forFeature("jobs", jobsReducer),
-    LogbooksModule,
   ],
   declarations: [
     BatchCardComponent,
     BatchViewComponent,
-    DashboardComponent,
     DatablocksComponent,
     DatafilesComponent,
-    DatasetDetailComponent,
     DatasetTableComponent,
     DatasetsFilterComponent,
     PublishComponent,
     ReduceComponent,
-    DatasetDetailsDashboardComponent,
     AddDatasetDialogComponent,
     DatasetTableSettingsComponent,
     DatasetTableActionsComponent,
     DatasetLifecycleComponent,
-    AnonymousDashboardComponent,
-    AnonymousDetailsDashboardComponent,
-    AnonymousDetailsComponent,
     SampleEditComponent,
   ],
   providers: [
@@ -140,13 +123,15 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
     { provide: MAT_DATE_LOCALE, useValue: "sv-SE" },
   ],
   exports: [
-    DashboardComponent,
     DatablocksComponent,
     DatafilesComponent,
-    DatasetDetailComponent,
     DatasetTableComponent,
     DatasetsFilterComponent,
     BatchCardComponent,
+    DatasetLifecycleComponent,
+    DatasetTableSettingsComponent,
+    ReduceComponent,
+    DatasetTableActionsComponent
   ],
 })
-export class DatasetsModule {}
+export class DatasetsComponentsModule {}

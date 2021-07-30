@@ -6,7 +6,7 @@ import {
   waitForAsync,
 } from "@angular/core/testing";
 import { Store, StoreModule } from "@ngrx/store";
-import { DatasetsFilterComponent } from "datasets/datasets-filter/datasets-filter.component";
+import { DatasetsFilterComponent } from "datasets/datasets-components/datasets-filter/datasets-filter.component";
 import { MockStore } from "shared/MockStubs";
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";

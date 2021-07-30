@@ -15,7 +15,7 @@ import {
   updateAttachmentCaptionAction,
   removeAttachmentAction,
   updatePropertyAction,
-} from "../../state-management/actions/datasets.actions";
+} from "../../../state-management/actions/datasets.actions";
 import { Dataset, UserApi, User, Sample } from "shared/sdk";
 import { ReadFile, ReadMode } from "ngx-file-helpers";
 import { NO_ERRORS_SCHEMA } from "@angular/core";

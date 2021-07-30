@@ -1,5 +1,4 @@
-import { APP_CONFIG, AppConfigModule } from "../../app-config.module";
-import { DatafilesComponent } from "../../datasets/datafiles/datafiles.component";
+import { APP_CONFIG, AppConfigModule } from "../../../app-config.module";
 import { DatasetDetailComponent } from "./dataset-detail.component";
 import { LinkyPipe } from "ngx-linky";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
@@ -10,7 +9,7 @@ import { MatChipInputEvent, MatChipsModule } from "@angular/material/chips";
 import { of } from "rxjs";
 import { Dataset, Sample } from "shared/sdk";
 import { MatDialogRef } from "@angular/material/dialog";
-import { SampleEditComponent } from "datasets/sample-edit/sample-edit.component";
+import { SampleEditComponent } from "datasets/datasets-components/sample-edit/sample-edit.component";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
@@ -18,6 +17,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatButtonModule } from "@angular/material/button";
 import { MatTabsModule } from "@angular/material/tabs";
 import { NgxJsonViewerModule } from "ngx-json-viewer";
+import { DatafilesComponent } from "datasets/datasets-components/datafiles/datafiles.component";
 
 describe("DatasetDetailComponent", () => {
   let component: DatasetDetailComponent;

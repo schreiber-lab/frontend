@@ -4,7 +4,7 @@ import { APP_CONFIG, AppConfig } from "app-config.module";
 import { ENTER, COMMA, SPACE } from "@angular/cdk/keycodes";
 import { MatChipInputEvent } from "@angular/material/chips";
 import { MatDialog } from "@angular/material/dialog";
-import { SampleEditComponent } from "datasets/sample-edit/sample-edit.component";
+import { SampleEditComponent } from "datasets/datasets-components/sample-edit/sample-edit.component";
 
 /**
  * Component to show details for a data set, using the

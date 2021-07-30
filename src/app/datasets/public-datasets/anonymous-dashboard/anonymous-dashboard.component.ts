@@ -19,12 +19,12 @@ import { combineLatest, Subscription } from "rxjs";
 import deepEqual from "deep-equal";
 
 import { DatasetFilters, Dataset } from "state-management/models";
-import { SelectColumnEvent } from "datasets/dataset-table-settings/dataset-table-settings.component";
 import {
   selectColumnAction,
   deselectColumnAction,
 } from "state-management/actions/user.actions";
 import { MatSidenav } from "@angular/material/sidenav";
+import { SelectColumnEvent } from "datasets/datasets-components/dataset-table-settings/dataset-table-settings.component";
 
 @Component({
   selector: "anonymous-dashboard",

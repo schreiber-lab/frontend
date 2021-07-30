@@ -19,7 +19,6 @@ import { Dataset, MessageType } from "state-management/models";
 import { showMessageAction } from "state-management/actions/user.actions";
 
 import { Router } from "@angular/router";
-import { ArchivingService } from "../archiving.service";
 import { Observable, Subscription } from "rxjs";
 import { ShareGroupApi } from "shared/sdk/services/custom/ShareGroup";
 import { DatasetApi } from "shared/sdk/services/custom/Dataset";
@@ -29,6 +28,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { COMMA, ENTER } from "@angular/cdk/keycodes";
 import { MatChipInputEvent } from "@angular/material/chips";
 import { APP_CONFIG, AppConfig } from "app-config.module";
+import { ArchivingService } from "datasets/archiving.service";
 
 export interface Share {
   name: string;
