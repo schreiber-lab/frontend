@@ -45,7 +45,7 @@
     "ngx-json-viewer": "^2.4.0",
     "ngx-linky": "^3.0.0",
     "ngx-material-luxon": "^1.1.1",
-    "rxjs": "^6.6.6",
+    "rxjs": "^7.4.0",
     "shortid": "^2.2.16",
     "socket.io-client": "^4.3.2",
     "tslib": "^2.3.1",
