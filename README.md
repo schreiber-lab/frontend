@@ -1,3 +1,4 @@
+# TEST --- TO BE REMOVED
 # Catanie: SciCat GUI
 
 
