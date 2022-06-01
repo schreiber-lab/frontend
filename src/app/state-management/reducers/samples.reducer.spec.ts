@@ -1,7 +1,13 @@
 import { samplesReducer } from "./samples.reducer";
 import { initialSampleState } from "../state/samples.store";
 import * as fromActions from "../actions/samples.actions";
-import { Attachment, Sample, Dataset, SampleFilters, ScientificCondition } from "../models";
+import {
+  Attachment,
+  Sample,
+  Dataset,
+  SampleFilters,
+  ScientificCondition,
+} from "../models";
 import { SampleInterface } from "shared/sdk";
 
 const data: SampleInterface = {
@@ -206,7 +212,7 @@ describe("SamplesReducer", () => {
     it("should add characteristic to characteristics filter", () => {
       const characteristic: ScientificCondition = {
         lhs: "lhsTest",
-        relation: "EQUAL_TO_STRING",
+        relation: "CONTAINS_STRING",
         rhs: "rhsTest",
         unit: "",
       };
@@ -224,7 +230,7 @@ describe("SamplesReducer", () => {
     it("should remove characteristic from characteristics filter", () => {
       const characteristic: ScientificCondition = {
         lhs: "lhsTest",
-        relation: "EQUAL_TO_STRING",
+        relation: "CONTAINS_STRING",
         rhs: "rhsTest",
         unit: "",
       };

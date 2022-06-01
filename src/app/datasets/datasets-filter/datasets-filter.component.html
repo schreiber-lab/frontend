@@ -10,7 +10,7 @@
     >
       <mat-icon>clear_all</mat-icon> Clear
     </button>
-    <div style="clear: both;"></div>
+    <div style="clear: both"></div>
   </div>
 
   <app-search-bar
@@ -182,7 +182,7 @@
           <ng-container *ngSwitchCase="'EQUAL_TO_NUMERIC'">
             &nbsp;=&nbsp;
           </ng-container>
-          <ng-container *ngSwitchCase="'EQUAL_TO_STRING'">
+          <ng-container *ngSwitchCase="'CONTAINS_STRING'">
             &nbsp;=&nbsp;
           </ng-container>
           <ng-container *ngSwitchCase="'LESS_THAN'">
@@ -193,7 +193,7 @@
           </ng-container>
         </ng-container>
         {{
-          condition.relation === "EQUAL_TO_STRING"
+          condition.relation === "CONTAINS_STRING"
             ? '"' + condition.rhs + '"'
             : condition.rhs
         }}

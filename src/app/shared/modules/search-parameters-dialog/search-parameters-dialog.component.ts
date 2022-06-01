@@ -12,7 +12,7 @@ import { UnitsService } from "shared/services/units.service";
 export class SearchParametersDialogComponent {
   appConfig = this.appConfigService.getConfig();
   unitsEnabled = this.appConfig.scienceSearchUnitsEnabled;
-  
+
   parameterKeys = this.data.parameterKeys;
   units: string[] = [];
 
@@ -55,7 +55,7 @@ export class SearchParametersDialogComponent {
     const { lhs, relation, unit } = this.parametersForm.value;
     const rawRhs = this.parametersForm.get("rhs")?.value;
     const rhs =
-      relation === "EQUAL_TO_STRING" ? String(rawRhs) : Number(rawRhs);
+      relation === "CONTAINS_STRING" ? String(rawRhs) : Number(rawRhs);
     this.parametersForm.patchValue({ rhs });
     this.dialogRef.close({ data: { lhs, relation, rhs, unit } });
   };
@@ -70,7 +70,7 @@ export class SearchParametersDialogComponent {
   toggleUnitField = (): void => {
     const lhsInvalid = this.parametersForm.get("lhs")?.invalid;
     const { relation } = this.parametersForm.value;
-    const isStringRelation = relation === "EQUAL_TO_STRING" ? true : false;
+    const isStringRelation = relation === "CONTAINS_STRING" ? true : false;
     const unitField = this.parametersForm.get("unit");
     unitField?.enable();
     if (lhsInvalid || isStringRelation) {
@@ -85,7 +85,7 @@ export class SearchParametersDialogComponent {
     if (invalid) {
       return invalid;
     }
-    if (relation !== "EQUAL_TO_STRING" && isNaN(Number(rhs))) {
+    if (relation !== "CONTAINS_STRING" && isNaN(Number(rhs))) {
       return true;
     }
     return lhs.length * rhs.length === 0;

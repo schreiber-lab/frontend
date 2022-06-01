@@ -59,7 +59,7 @@ export class MockMatDialog {
     return {
       afterClosed: () =>
         of({
-          data: { lhs: "", rhs: "", relation: "EQUAL_TO_STRING", unit: "" },
+          data: { lhs: "", rhs: "", relation: "CONTAINS_STRING", unit: "" },
         }),
     };
   }
@@ -512,7 +512,7 @@ describe("DatasetsFilterComponent", () => {
           condition: {
             lhs: "",
             rhs: "",
-            relation: "EQUAL_TO_STRING",
+            relation: "CONTAINS_STRING",
             unit: "",
           },
         })

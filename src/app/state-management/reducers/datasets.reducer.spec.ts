@@ -1,6 +1,12 @@
 import * as fromDatasets from "./datasets.reducer";
 import * as fromActions from "../actions/datasets.actions";
-import { Dataset, DatasetInterface, Attachment, DerivedDatasetInterface, DerivedDataset } from "shared/sdk/models";
+import {
+  Dataset,
+  DatasetInterface,
+  Attachment,
+  DerivedDatasetInterface,
+  DerivedDataset,
+} from "shared/sdk/models";
 import {
   FacetCounts,
   initialDatasetState,
@@ -132,10 +138,12 @@ describe("DatasetsReducer", () => {
 
   describe("on addDatasetCompleteAction", () => {
     it("should set currentSet", () => {
-      const action = fromActions.addDatasetCompleteAction({ dataset: derivedDataset });
+      const action = fromActions.addDatasetCompleteAction({
+        dataset: derivedDataset,
+      });
       const state = fromDatasets.datasetsReducer(initialDatasetState, action);
 
-      expect(state.currentSet).toEqual((derivedDataset as unknown) as Dataset);
+      expect(state.currentSet).toEqual(derivedDataset as unknown as Dataset);
     });
   });
 
@@ -453,7 +461,7 @@ describe("DatasetsReducer", () => {
     it("should add scientific condition to scientific filter", () => {
       const condition: ScientificCondition = {
         lhs: "lhsTest",
-        relation: "EQUAL_TO_STRING",
+        relation: "CONTAINS_STRING",
         rhs: "rhsTest",
         unit: "",
       };
@@ -469,7 +477,7 @@ describe("DatasetsReducer", () => {
     it("should remove scientific condition from scientific filter", () => {
       const condition: ScientificCondition = {
         lhs: "lhsTest",
-        relation: "EQUAL_TO_STRING",
+        relation: "CONTAINS_STRING",
         rhs: "rhsTest",
         unit: "",
       };

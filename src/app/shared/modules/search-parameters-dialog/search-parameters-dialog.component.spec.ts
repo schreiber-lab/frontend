@@ -17,7 +17,7 @@ import { AppConfigService } from "app-config.service";
 import { SearchParametersDialogComponent } from "./search-parameters-dialog.component";
 
 const getConfig = () => ({
-  scienceSearchUnitsEnabled: true
+  scienceSearchUnitsEnabled: true,
 });
 
 describe("SearchParametersDialogComponent", () => {
@@ -107,7 +107,7 @@ describe("SearchParametersDialogComponent", () => {
   });
 
   describe("#toggleUnitField()", () => {
-    it("should enable unitField if lhs is valid and relation is not EQUAL_TO_STRING", () => {
+    it("should enable unitField if lhs is valid and relation is not CONTAINS_STRING", () => {
       const formValues = {
         lhs: "mass",
         relation: "LESS_THAN",
@@ -133,10 +133,10 @@ describe("SearchParametersDialogComponent", () => {
 
       expect(component.parametersForm.get("unit").disabled).toEqual(true);
     });
-    it("should disable unitField if relation is EQUAL_TO_STRING", () => {
+    it("should disable unitField if relation is CONTAINS_STRING", () => {
       const formValues = {
         lhs: "mass",
-        relation: "EQUAL_TO_STRING",
+        relation: "CONTAINS_STRING",
         rhs: 5,
         unit: "",
       };
@@ -162,7 +162,7 @@ describe("SearchParametersDialogComponent", () => {
 
       expect(isInvalid).toEqual(true);
     });
-    it("should return true if relation is not EQUAL_TO_STRING and rhs is a string", () => {
+    it("should return true if relation is not CONTAINS_STRING and rhs is a string", () => {
       const formValues = {
         lhs: "mass",
         relation: "LESS_THAN",

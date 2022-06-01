@@ -42,7 +42,7 @@
                   <ng-container *ngSwitchCase="'EQUAL_TO_NUMERIC'">
                     &nbsp;=&nbsp;
                   </ng-container>
-                  <ng-container *ngSwitchCase="'EQUAL_TO_STRING'">
+                  <ng-container *ngSwitchCase="'CONTAINS_STRING'">
                     &nbsp;=&nbsp;
                   </ng-container>
                   <ng-container *ngSwitchCase="'LESS_THAN'">
@@ -53,7 +53,7 @@
                   </ng-container>
                 </ng-container>
                 {{
-                  characteristic.relation === "EQUAL_TO_STRING"
+                  characteristic.relation === "CONTAINS_STRING"
                     ? '"' + characteristic.rhs + '"'
                     : characteristic.rhs
                 }}

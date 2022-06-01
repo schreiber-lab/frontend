@@ -80,7 +80,7 @@ export enum JobViewMode {
 
 type ScientificConditionRelation =
   | "EQUAL_TO_NUMERIC"
-  | "EQUAL_TO_STRING"
+  | "CONTAINS_STRING"
   | "GREATER_THAN"
   | "LESS_THAN";
 
