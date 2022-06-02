@@ -182,8 +182,11 @@
           <ng-container *ngSwitchCase="'EQUAL_TO_NUMERIC'">
             &nbsp;=&nbsp;
           </ng-container>
-          <ng-container *ngSwitchCase="'CONTAINS_STRING'">
+          <ng-container *ngSwitchCase="'EQUAL_TO_STRING'">
             &nbsp;=&nbsp;
+          </ng-container>
+          <ng-container *ngSwitchCase="'CONTAINS_STRING'">
+            &nbsp;contains&nbsp;
           </ng-container>
           <ng-container *ngSwitchCase="'LESS_THAN'">
             &nbsp;&lt;&nbsp;
@@ -193,7 +196,7 @@
           </ng-container>
         </ng-container>
         {{
-          condition.relation === "CONTAINS_STRING"
+          ["EQUAL_TO_STRING", "CONTAINS_STRING"].includes(condition.relation)
             ? '"' + condition.rhs + '"'
             : condition.rhs
         }}
