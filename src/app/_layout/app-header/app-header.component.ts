@@ -13,6 +13,7 @@ import {
 import { selectDatasetsInBatchIndicator } from "state-management/selectors/datasets.selectors";
 import { AppConfigService } from "app-config.service";
 import { Router } from "@angular/router";
+import { LoopBackAuth } from "shared/sdk";
 
 @Component({
   selector: "app-app-header",
@@ -29,8 +30,9 @@ export class AppHeaderComponent implements OnInit {
   profileImage$ = this.store.select(selectThumbnailPhoto);
   inBatchIndicator$ = this.store.select(selectDatasetsInBatchIndicator);
   loggedIn$ = this.store.select(selectIsLoggedIn);
-
+  
   constructor(
+    private loopBackAuthService: LoopBackAuth,
     public appConfigService: AppConfigService,
     private router: Router,
     @Inject(APP_CONFIG) public appConfig: AppConfig,
