@@ -75,6 +75,20 @@
 
     <span>
       <h6>
+        <a
+          class="toplink"
+          href="{{ config.extraSiteURL }}/?auth_token={{ authToken }}"
+          target="_blank"
+        > 
+          <!-- <a class="toplink" [routerLink]=`${config.lbBaseURL}/help/`></a> -->
+          <mat-icon>extension</mat-icon>
+          <span class="large-screen-text">Ingest Extension</span>
+        </a>
+      </h6>
+    </span>
+
+    <span>
+      <h6>
         <a class="toplink" [routerLink]="['/help']">
           <mat-icon> help </mat-icon>
           <span class="large-screen-text">Help</span></a
