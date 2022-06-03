@@ -34,6 +34,7 @@ export interface AppConfig {
   jupyterHubUrl: string | null;
   landingPage: string | null;
   lbBaseURL: string;
+  extraSiteURL: string;
   localColumns: TableColumn[];
   logbookEnabled: boolean;
   loginFormEnabled: boolean;
