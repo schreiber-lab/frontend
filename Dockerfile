@@ -6,7 +6,7 @@ RUN apk update && apk upgrade && \
 
 WORKDIR /frontend
 COPY package*.json  /frontend/
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 COPY . /frontend/
 RUN npx ng build
 
