@@ -6,7 +6,7 @@ import { PublisheddataDetailsComponent } from "./publisheddata-details/published
 import { MatButtonModule } from "@angular/material/button";
 import { MatCardModule } from "@angular/material/card";
 import { MatIconModule } from "@angular/material/icon";
-import { SharedCatanieModule } from "shared/shared.module";
+import { SharedScicatFrontendModule } from "shared/shared.module";
 import { LinkyModule } from "ngx-linky";
 import { NgxJsonViewerModule } from "ngx-json-viewer";
 
@@ -22,6 +22,7 @@ import { MatOptionModule } from "@angular/material/core";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { RouterModule } from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { MatTooltipModule } from "@angular/material/tooltip";
     MatTooltipModule,
     NgxJsonViewerModule,
     ReactiveFormsModule,
-    SharedCatanieModule,
+    RouterModule,
+    SharedScicatFrontendModule,
     StoreModule.forFeature("publishedData", publishedDataReducer),
     FormsModule,
     MatFormFieldModule,
