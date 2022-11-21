@@ -18,6 +18,7 @@
   "jupyterHubUrl": "https://jupyterhub.esss.lu.se/",
   "landingPage": "doi2.psi.ch/detail/",
   "lbBaseURL": "http://tinybox1.am10.uni-tuebingen.de",
+  "extraSiteURL": "http://tinybox1.am10.uni-tuebingen.de/upload",
   "localColumns": [
     {
       "name": "select",

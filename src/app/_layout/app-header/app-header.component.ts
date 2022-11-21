@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from "@angular/core";
 import { APP_CONFIG, AppConfig } from "app-config.module";
 import { Store } from "@ngrx/store";
-// import config from "./../../../assets";
 import {
   fetchCurrentUserAction,
   logoutAction,
