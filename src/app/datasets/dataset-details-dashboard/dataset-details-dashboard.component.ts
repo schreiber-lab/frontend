@@ -16,17 +16,18 @@ import {
 } from "state-management/selectors/user.selectors";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription, Observable, combineLatest } from "rxjs";
-import { map, pluck, takeWhile } from "rxjs/operators";
+import { map, pluck } from "rxjs/operators";
 import {
   clearCurrentDatasetStateAction,
   fetchAttachmentsAction,
   fetchDatablocksAction,
   fetchDatasetAction,
   fetchOrigDatablocksAction,
+  fetchRelatedDatasetsAction,
 } from "state-management/actions/datasets.actions";
 import {
   clearLogbookAction,
-  fetchLogbookAction,
+  fetchDatasetLogbookAction,
 } from "state-management/actions/logbooks.actions";
 import {
   clearCurrentProposalStateAction,
@@ -51,6 +52,7 @@ export interface FileObject {
 enum TAB {
   details = "Details",
   datafiles = "Datafiles",
+  relatedDatasets = "Related Datasets",
   reduce = "Reduce",
   logbook = "Logbook",
   attachments = "Attachments",
@@ -81,8 +83,12 @@ export class DatasetDetailsDashboardComponent
   }[] = [];
   fetchDataActions: { [tab: string]: { action: any; loaded: boolean } } = {
     [TAB.details]: { action: fetchDatasetAction, loaded: false },
+    [TAB.relatedDatasets]: {
+      action: fetchRelatedDatasetsAction,
+      loaded: false,
+    },
     [TAB.datafiles]: { action: fetchOrigDatablocksAction, loaded: false },
-    [TAB.logbook]: { action: fetchLogbookAction, loaded: false },
+    [TAB.logbook]: { action: fetchDatasetLogbookAction, loaded: false },
     [TAB.attachments]: { action: fetchAttachmentsAction, loaded: false },
     [TAB.admin]: { action: fetchDatablocksAction, loaded: false },
   };
@@ -99,28 +105,31 @@ export class DatasetDetailsDashboardComponent
     private store: Store,
     private userApi: UserApi,
     public dialog: MatDialog
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.route.params
-      .pipe(pluck("id"))
-      .subscribe((id: string) => {
+    this.subscriptions.push(
+      this.route.params.pipe(pluck("id")).subscribe((id: string) => {
         if (id) {
+          this.resetTabs();
           // Fetch dataset details
           this.store.dispatch(fetchDatasetAction({ pid: id }));
           this.fetchDataActions[TAB.details].loaded = true;
         }
       })
-      .unsubscribe();
+    );
+
     const datasetSub = this.dataset$
-      .pipe(takeWhile((dataset) => !dataset, true))
       .subscribe((dataset) => {
-        if (dataset) {
+        // Only run this code when dataset.pid is different from this.dataset.pid or this.dataset = null
+        if (dataset && (!this.dataset || this.dataset && (dataset.pid != this.dataset.pid))) {
           this.dataset = dataset;
           combineLatest([this.accessGroups$, this.isAdmin$, this.loggedIn$])
             .subscribe(([groups, isAdmin, isLoggedIn]) => {
               const isInOwnerGroup =
                 groups.indexOf(this.dataset.ownerGroup) !== -1 || isAdmin;
+              const hasAccessToLogbook = 
+                isInOwnerGroup || this.dataset.accessGroups.some(g => groups.includes(g));
               this.navLinks = [
                 {
                   location: "./",
@@ -132,6 +141,12 @@ export class DatasetDetailsDashboardComponent
                   location: "./datafiles",
                   label: TAB.datafiles,
                   icon: "cloud_download",
+                  enabled: true,
+                },
+                {
+                  location: "./related-datasets",
+                  label: TAB.relatedDatasets,
+                  icon: "folder",
                   enabled: true,
                 },
                 {
@@ -150,7 +165,7 @@ export class DatasetDetailsDashboardComponent
                   enabled:
                     this.appConfig.logbookEnabled &&
                     isLoggedIn &&
-                    isInOwnerGroup,
+                    hasAccessToLogbook,
                 },
                 {
                   location: "./attachments",
@@ -181,43 +196,24 @@ export class DatasetDetailsDashboardComponent
             })
             .unsubscribe();
 
-          if ("proposalId" in dataset) {
-            this.store.dispatch(
-              fetchProposalAction({ proposalId: dataset["proposalId"] })
-            );
-          } else {
-            this.store.dispatch(clearLogbookAction());
-          }
-          if ("sampleId" in dataset) {
-            this.store.dispatch(
-              fetchSampleAction({ sampleId: dataset["sampleId"] })
-            );
-          }
-          if ("instrumentId" in dataset) {
-            this.store.dispatch(
-              fetchInstrumentAction({ pid: dataset["instrumentId"] })
-            );
-          }
+          this.fetchDatasetRelatedDocuments();
         }
       });
     this.subscriptions.push(datasetSub);
     this.jwt$ = this.userApi.jwt();
-  };
+  }
+  resetTabs() {
+    Object.values(this.fetchDataActions).forEach(tab => {
+      tab.loaded = false;
+    });
+  }
   onTabSelected(tab: string) {
     this.fetchDataForTab(tab);
   }
   fetchDataForTab(tab: string) {
     if (tab in this.fetchDataActions) {
       let args: { [key: string]: any };
-      if (tab === TAB.logbook) {
-        if (this.dataset && "proposalId" in this.dataset) {
-          args = { name: this.dataset["proposalId"] };
-        } else {
-          return;
-        }
-      } else {
-        args = { pid: this.dataset?.pid };
-      }
+      args = { pid: this.dataset?.pid };
       // load related data for selected tab
       switch (tab) {
         case TAB.details:
@@ -239,6 +235,29 @@ export class DatasetDetailsDashboardComponent
       }
     }
   }
+
+  fetchDatasetRelatedDocuments(): void {
+    if (this.dataset) {
+      if ("proposalId" in this.dataset) {
+        this.store.dispatch(
+          fetchProposalAction({ proposalId: this.dataset["proposalId"] })
+        );
+      } else {
+        this.store.dispatch(clearLogbookAction());
+      }
+      if ("sampleId" in this.dataset) {
+        this.store.dispatch(
+          fetchSampleAction({ sampleId: this.dataset["sampleId"] })
+        );
+      }
+      if ("instrumentId" in this.dataset) {
+        this.store.dispatch(
+          fetchInstrumentAction({ pid: this.dataset["instrumentId"] })
+        );
+      }
+    }
+  }
+
   ngAfterViewChecked() {
     this.cdRef.detectChanges();
   }

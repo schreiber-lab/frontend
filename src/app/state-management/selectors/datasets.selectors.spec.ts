@@ -8,6 +8,8 @@ const initialDatasetState: DatasetState = {
   datasets: [],
   selectedSets: [],
   currentSet: dataset,
+  relatedDatasets: [],
+  relatedDatasetsCount: 0,
   totalCount: 0,
 
   facetCounts: {},
@@ -36,6 +38,11 @@ const initialDatasetState: DatasetState = {
     keywords: [],
     scientific: [],
     isPublished: false,
+  },
+  relatedDatasetsFilters: {
+    skip: 0,
+    limit: 25,
+    sortField: "creationTime:desc",
   },
 };
 
@@ -273,11 +280,11 @@ describe("test dataset selectors", () => {
 
   describe("selectFullfacetParams", () => {
     it("should return the fullfacet params", () => {
-      const fullfacetKeys = Object.keys(
-        fromDatasetSelectors.selectFullfacetParams.projector(
-          initialDatasetState.filters
-        )
+      const fullfacet = fromDatasetSelectors.selectFullfacetParams.projector(
+        initialDatasetState.filters
       );
+      const fullfacetKeys = Object.keys(fullfacet);
+      expect(fullfacet.facets).toEqual(["type", "creationLocation", "ownerGroup", "keywords"]);
       expect(fullfacetKeys).toContain("facets");
     });
   });
@@ -375,6 +382,24 @@ describe("test dataset selectors", () => {
           initialDatasetState
         )
       ).toEqual({});
+    });
+  });
+
+  describe("selectRelatedDatasets", () => {
+    it("should return the current related datasets", () => {
+      expect(
+        fromDatasetSelectors.selectRelatedDatasetsPageViewModel.projector(
+          initialDatasetState
+        )
+      ).toEqual({
+        relatedDatasets: [],
+        relatedDatasetsCount: 0,
+        relatedDatasetsFilters: {
+          skip: 0,
+          limit: 25,
+          sortField: "creationTime:desc",
+        },
+      });
     });
   });
 });

@@ -84,6 +84,46 @@ describe("DatasetsReducer", () => {
     });
   });
 
+  describe("on fetchRelatedDatasetsCompleteAction", () => {
+    it("should set relatedDatasets property", () => {
+      const relatedDatasets = [dataset];
+      const action = fromActions.fetchRelatedDatasetsCompleteAction({
+        relatedDatasets,
+      });
+      const state = fromDatasets.datasetsReducer(initialDatasetState, action);
+
+      expect(state.relatedDatasets).toEqual(relatedDatasets);
+    });
+  });
+
+  describe("on fetchRelatedDatasetsCountCompleteAction", () => {
+    it("should set relatedDatasetsCount property", () => {
+      const count = 0;
+      const action = fromActions.fetchRelatedDatasetsCountCompleteAction({
+        count,
+      });
+      const state = fromDatasets.datasetsReducer(initialDatasetState, action);
+
+      expect(state.relatedDatasetsCount).toEqual(count);
+    });
+  });
+
+  describe("on changeRelatedDatasetsPageAction", () => {
+    it("should set relatedDatasetsFilters skip and limit property", () => {
+      const page = 0;
+      const limit = 25;
+      const skip = page * limit;
+      const action = fromActions.changeRelatedDatasetsPageAction({
+        page,
+        limit,
+      });
+      const state = fromDatasets.datasetsReducer(initialDatasetState, action);
+
+      expect(state.relatedDatasetsFilters.skip).toEqual(skip);
+      expect(state.relatedDatasetsFilters.limit).toEqual(limit);
+    });
+  });
+
   describe("on prefillBatchCompleteAction", () => {
     it("should set batch property", () => {
       const batch: Dataset[] = [];
