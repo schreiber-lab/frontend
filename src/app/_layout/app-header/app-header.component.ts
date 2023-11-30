@@ -25,7 +25,8 @@ export class AppHeaderComponent implements OnInit {
   facility = this.config.facility ?? "";
   status = this.appConfig.production ? "" : "test";
   siteIcon = this.config.siteIcon ?? "site-logo.png";
-
+  authToken = this.loopBackAuthService.getToken().id;
+  
   username$ = this.store.select(selectCurrentUserName);
   profileImage$ = this.store.select(selectThumbnailPhoto);
   inBatchIndicator$ = this.store.select(selectDatasetsInBatchIndicator);
