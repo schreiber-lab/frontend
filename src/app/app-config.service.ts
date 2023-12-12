@@ -103,6 +103,7 @@ export class AppConfigService {
       console.log("No config available in backend, trying with local config.");
       try {
         this.appConfig = await this.http.get("/assets/config.json").toPromise();
+        console.log(this.appConfig)
       } catch (err) {
         console.error("No config provided.");
       }
