@@ -15,14 +15,7 @@ import { selectUserSettingsPageViewModel, selectScicatToken } from "state-manage
 import { selectDatasetsInBatchIndicator } from "state-management/selectors/datasets.selectors";
 import { AppConfigService } from "app-config.service";
 import { Router } from "@angular/router";
-import { LoopBackAuth } from "shared/sdk";
-
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-  return null
-}
+import { LoopBackAuth, SDKToken } from "shared/sdk";
 
 @Component({
   selector: "app-app-header",
@@ -34,15 +27,12 @@ export class AppHeaderComponent implements OnInit {
   facility = this.config.facility ?? "";
   status = this.appConfig.production ? "" : "test";
   siteIcon = this.config.siteIcon ?? "site-logo.png";
-  authToken = getCookie("$LoopBackSDK$id");
+  authToken: SDKToken;
 
-  vm$ = this.store.select(selectScicatToken);
   username$ = this.store.select(selectCurrentUserName);
-  user$ = this.store.select(selectUserState);
   profileImage$ = this.store.select(selectThumbnailPhoto);
   inBatchIndicator$ = this.store.select(selectDatasetsInBatchIndicator);
   loggedIn$ = this.store.select(selectIsLoggedIn);
-
 
   constructor(
     private loopBackAuthService: LoopBackAuth,
@@ -51,20 +41,23 @@ export class AppHeaderComponent implements OnInit {
     @Inject(APP_CONFIG) public appConfig: AppConfig,
     private store: Store
   ) {
-    // this.vm$.subscribe(
-    //   (settings) => {
-    //     // @ts-ignore
-    //     console.log(settings)
-    //     (this.authToken = settings.scicatToken.replace("Bearer ", ""))
-    //   }   
-    // );
   }
-
+  
   logout(): void {
     this.store.dispatch(logoutAction());
+  }
+  
+  openExtension(): void {
+    const authToken = this.loopBackAuthService.getToken()?.id?.replace("Bearer ", "");
+
+    window.open(`${this.config.extraSiteURL}/?auth_token=${authToken}`)
   }
 
   ngOnInit() {
     this.store.dispatch(fetchCurrentUserAction());
+
+    this.username$.subscribe(() => {
+      console.log(this.authToken)
+    });
   }
 }
